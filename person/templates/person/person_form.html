@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+  <h1>Create Person</h1>
+  <form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.errors }}
+    {% crispy form %}
+
+    {% if images %}
+    <h3>Create Image(s)</h3>
+    {{ images.management_form|crispy }}
+    <div id="person_image_formset">
+      {% for form in images.forms %}
+      {{ form.non_field_errors }}
+      {{ form.errors }}
+      {{ form.id }}
+      <table class="no_error">
+        {% crispy form %}
+      </table>
+      {% endfor %}
+    </div>
+    <input class="btn btn-outline-secondary" id="person_image_add_more" type="button" value="Add more image">
+    <div id="person_image_empty_form" style="display:none">
+      <table class="no_error">
+        {% crispy images.empty_form %}
+      </table>
+    </div>
+    {% endif %}
+
+    <br><br>
+    {% if not form.instance.pk %}
+    <input class="btn btn-outline-primary" type="submit" value="Create person">
+    {% else %}
+    <input class="btn btn-outline-primary" type="submit" value="Update person">
+    {% endif %}
+  </form>
+</div>
+{% endblock %}
+
+{% block scriptblock %}
+{{ block.super }}
+<script>
+document.querySelector("#person_image_add_more").addEventListener("click", function() {
+  var form_idx = document.querySelector("#id_person_image-TOTAL_FORMS").value
+  document.querySelector("#person_image_formset").innerHTML += document.querySelector("#person_image_empty_form").innerHTML.replace(/__prefix__/g, form_idx)
+  document.querySelector("#id_person_image-TOTAL_FORMS").value = parseInt(form_idx) + 1
+});
+</script>
+{% endblock %}

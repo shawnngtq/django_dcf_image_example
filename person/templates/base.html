@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+  {% block linkblock %}
+  {% include "link.html" %}
+  {% endblock %}
+</head>
+<body>
+
+{% block content %}
+{% endblock %}
+
+{% block scriptblock %}
+{% include "script.html" %}
+{% endblock %}
+</body>
+</html>

@@ -23,20 +23,16 @@ class PersonCreateView(CreateView):
             context["images"] = PersonImageFormSet(self.request.POST, self.request.FILES)
         else:
             context["images"] = PersonImageFormSet()
-        # print(f"PersonCreateView.get_context_data: {context}")
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
-        # print(f"PersonCreateView.form_valid: {context}")
         images = context["images"]
         if images.is_valid():
             self.object = form.save()
-            # print(f"PersonCreateView.form_valid.FILES: {self.request.FILES}")
-            for v in self.request.FILES.values():
-                self.object.person_image.create(image=v)
+            images.instance = self.object
+            images.save()
         else:
-            # print(f"PersonCreateView.form_valid not all are valid: {form.errors}")
             return self.form_invalid(form)
         return super(PersonCreateView, self).form_valid(form)
 
@@ -62,14 +58,11 @@ class PersonUpdateView(UpdateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        # print(f"PersonUpdateView.form_valid: {context}")
         images = context["images"]
         if images.is_valid():
             self.object = form.save()
-            print(f"PersonUpdateView.form_valid.FILES: {self.request.FILES}")
-            for v in self.request.FILES.values():
-                self.object.person_image.create(image=v)
+            images.instance = self.object
+            images.save()
         else:
-            print(f"PersonUpdateView.form_valid not all are valid: {form.errors}")
             return self.form_invalid(form)
         return super(PersonUpdateView, self).form_valid(form)

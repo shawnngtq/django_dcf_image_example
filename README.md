@@ -55,6 +55,8 @@ If you refer to `person/forms.py`, you see that I have defined the layout, `is_p
 ### Problem 3
 In the `127.0.0.1:port/person/update`, I am only able to update the first image, not the 2nd or subsequent images. So I check the html, **only the first input tag's value is correct, the rest are incorrect**. I believe this is the problem.
 
+If I use `{{ images }}` instead of what you see now inside `person_form.html`, this problem will disappear.
+
 ```html
 <div id="person_image_formset">
   <input

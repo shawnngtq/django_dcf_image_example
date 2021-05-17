@@ -38,6 +38,7 @@ INSTALLED_APPS = [
                  ] + [
                      'django_extensions',
                      'crispy_forms',
+                     'crispy_bootstrap5',
                      'imagekit',
                      'person',
                  ]
@@ -131,5 +132,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # django-crispy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_FAIL_SILENTLY = not DEBUG
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

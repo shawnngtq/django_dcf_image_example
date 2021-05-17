@@ -39,21 +39,21 @@ class PersonImageForm(forms.ModelForm):
             ),
         }
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.helper = FormHelper()
-            self.helper.form_tag = False
-            self.helper.disable_csrf = True
-            self.helper.layout = Layout(
-                Row(
-                    Column(
-                        "is_primary", css_class="form-group col-md-2 mb-0",
-                    ),
-                    Column(
-                        "image", css_class="form-group col-md-10 mb-0",
-                    ),
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+        self.helper.layout = Layout(
+            Row(
+                Column(
+                    "is_primary", css_class="form-group col-md-2 mb-0",
                 ),
-            )
+                Column(
+                    "image", css_class="form-group col-md-10 mb-0",
+                ),
+            ),
+        )
 
 
 PersonImageFormSet = forms.models.inlineformset_factory(
